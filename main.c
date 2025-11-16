@@ -1,48 +1,30 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "keyboard.h"
+#include "graphics.h"
+#include "player.h"
+
+Player *player;
+
+void paint_screen_tick() {
+    clear_screen();
+    setup_graphics();
+    print_player(player);
+}
 
 int main () {
-    int key;
-
-    printf("Pressione as setas do teclado (ESC para sair)\n");
-    printf("Funciona no Windows e Linux!\n\n");
-
-    while(1) {
+    hide_cursor();
+    player = init_player();
+    paint_screen_tick();
+    while (1) {
         if (kbhit()) {
-            key = read_key();
+            char key_value = (char) read_key();
 
-            switch(key) {
-                case KEY_UP:
-                    printf("Seta CIMA pressionada!\n");
-                    break;
-                case KEY_DOWN:
-                    printf("Seta BAIXO pressionada!\n");
-                    break;
-                case KEY_LEFT:
-                    printf("Seta ESQUERDA pressionada!\n");
-                    break;
-                case KEY_RIGHT:
-                    printf("Seta DIREITA pressionada!\n");
-                    break;
-                case KEY_ENTER:
-                    printf("ENTER pressionado!\n");
-                    break;
-                case KEY_ESC:
-                    printf("ESC pressionado. Saindo...\n");
-                    return 0;
-                case KEY_SPACE:
-                    printf("ESPAÇO pressionado!\n");
-                    break;
-                case KEY_BACKSPACE:
-                    printf("BACKSPACE pressionado!\n");
-                    break;
-                default:
-                    if (key >= 32 && key <= 126) {
-                        printf("Tecla '%c' pressionada (código: %d)\n", key, key);
-                    }
-            }
+            if (key_value == 'q') {return 0;}
+
+            move_player(player, key_value);
+            paint_screen_tick();
         }
     }
-    sleep(1000);
-    return 0;
 }

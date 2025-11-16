@@ -1,8 +1,8 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
-int kbhit(void);
-int getch_custom(void);
-int read_key(void);
+int kbhit(void); // Mostra se alguma tecla foi ativada
+int getch_custom(void); // Igual o read_key - Só que mais merda
+int read_key(void); // Lê a tecla
 
 #if defined(_WIN32) || defined(_WIN64) || defined(__WINDOWS__) || defined(__MINGW32__) || defined(__MINGW64__)
     #define IS_WINDOWS 1
@@ -25,6 +25,8 @@ typedef enum {
     KEY_SPACE,
     KEY_BACKSPACE
 } SpecialKey;
+
+// Entre 32 e 126 São teclas normais
 
 
 #endif
