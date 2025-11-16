@@ -8,20 +8,31 @@
  * Como funciona?
  *
  * Temos uma matriz base, nela temos a cena que queremos imprimir
- * Também temos a lista de matrizes chamada de components, ela representa os componentes que vamos imprimir em cima da tela
+ * O algoritmo colisão é implementado em player.h e usa a matriz graphics como base
  *
  *
  */
 
 char GRAPHICAL_GRID;
 char GRAPHICAL_COMPONENTS;
+char **graphics;
 
 void setup_graphics() {
-    puts("--------------------");
-    puts("                    ");
-    puts("                    ");
-    puts("--------------------");
+    graphics = malloc(GRAPHICS_HEIGHT * sizeof(char*));
+
+    for (int i = 0; i < GRAPHICS_HEIGHT; i++) {
+        graphics[i] = malloc(GRAPHICS_WIDTH * sizeof(char));
+        graphics[i][0] = '\0'; // deixa vazio
+    }
 }
+
+
+void print_graphics() {
+    for (int x = 0; x < GRAPHICS_HEIGHT; x++) {
+        fputs(graphics[x], stdout);
+    }
+}
+
 
 void clear_screen() {
     #if IS_WINDOWS
