@@ -1,0 +1,6 @@
+Para criar um nível, só adicionar o arquivo, com o level<Número do level>.txt.
+
+Pode colocar qualquer coisa, só seguimos algumas regras:
+
+'@' -> Player, posição de spawn
+' ' -> Espaço andável, qualquer coisa quer não for um espaço vai ser um obstáculo

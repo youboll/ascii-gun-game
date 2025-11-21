@@ -8,7 +8,7 @@
 Player* init_player () {
     Player *new_player = malloc(sizeof(Player));
     new_player -> position_x = 0;
-    new_player -> position_y = 0;
+    new_player -> position_y = 1;
     new_player -> health = 100;
     return new_player;
 }
@@ -56,4 +56,28 @@ bool has_collision(Player *player, int delta_x, int delta_y) {
         return true;
     }
     return false;
+}
+
+void spawn_player(Player *player) {
+    int player_pos_x = 0;
+    int player_pos_y = 0;
+
+    for (int x=0; x<GRAPHICS_HEIGHT; x++) {
+        bool found = false;
+        for (int y=0; y<GRAPHICS_WIDTH; y++) {
+            if (graphics[x][y] == PLAYER_SYMBOL) {
+                player_pos_x = x;
+                player_pos_y = y;
+                found = 1;
+                break;
+            }
+        }
+        if (found) {
+            break;
+        }
+    }
+
+    player -> position_y = player_pos_x;
+    player -> position_x = player_pos_y;
+    graphics[player_pos_x][player_pos_y] = WALKABLE_CHAR;
 }
