@@ -78,6 +78,6 @@ void spawn_player(Player *player) {
     }
 
     player -> position_y = player_pos_x;
-    player -> position_x = player_pos_y;
+    player -> position_x = player_pos_y; // Foi mal, tá invertido hehehehehe
     graphics[player_pos_x][player_pos_y] = WALKABLE_CHAR;
 }
