@@ -4,8 +4,9 @@
         int position_x;
         int position_y;
         int health;
+        char symbol;
     } Player;
-    #define PLAYER_SYMBOL '@'
+    #define PLAYER_SYMBOL '@' // Começa com '@' e depois vira uma seta ascii, para onde ele olha
     #define WALKABLE_CHAR ' '
 
     Player* init_player();
