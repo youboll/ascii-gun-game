@@ -16,6 +16,7 @@
 char GRAPHICAL_GRID;
 char GRAPHICAL_COMPONENTS;
 char **graphics;
+int current_level = 1;
 
 void setup_graphics() {
     graphics = malloc(GRAPHICS_HEIGHT * sizeof(char*));
@@ -45,3 +46,21 @@ void clear_screen() {
 void hide_cursor() {
     puts("\x1b[?25l");
 }
+
+FILE* load_graphics_file(int file_index) {
+    FILE *graphics_file;
+    char *filename[256];
+    sprintf((char *)filename, "levels/level%d.txt", file_index);
+    graphics_file = fopen((char *)filename, "r");
+
+    return graphics_file;
+}
+
+void load_graphics() {
+    FILE *current_graphics_file = load_graphics_file(current_level);
+    for (int x=0;x<GRAPHICS_HEIGHT;x++) {
+        fgets(graphics[x], GRAPHICS_WIDTH, current_graphics_file);
+    }
+    fclose(current_graphics_file);
+}
+

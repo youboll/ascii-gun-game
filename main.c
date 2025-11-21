@@ -7,17 +7,6 @@
 
 Player *player;
 
-void draw_map() {
-    strcpy(graphics[0], "-------------------------\n\0");
-    strcpy(graphics[1], "                         \n\0");
-    strcpy(graphics[2], "-----------   -----------\n\0");
-    strcpy(graphics[3], "                         \n\0");
-    strcpy(graphics[4], "                         \n\0");
-    strcpy(graphics[5], "--- ---------------- ----\n\0");
-    strcpy(graphics[6], "                         \n\0");
-    strcpy(graphics[7], "                         \n\0");
-    strcpy(graphics[8], "-------------------------\n\0");
-}
 
 void paint_screen_tick() {
     printf("\x1b[H");
@@ -29,8 +18,10 @@ void paint_screen_tick() {
 int main () {
     hide_cursor();
     setup_graphics(); // Aloca os gráficos
-    draw_map();
+    load_graphics();
+    print_graphics();
     player = init_player();
+    spawn_player(player);
     paint_screen_tick();
     while (1) {
         if (kbhit()) {
