@@ -10,12 +10,13 @@ Player* init_player () {
     new_player -> position_x = 0;
     new_player -> position_y = 1;
     new_player -> health = 100;
+    new_player -> symbol = PLAYER_SYMBOL;
     return new_player;
 }
 
 void print_player (Player *player) {
     printf("\x1b[%d;%dH", player->position_y+1, player->position_x+1);
-    putchar(PLAYER_SYMBOL);
+    putchar(player -> symbol);
     puts("\x1b[0m");
 }
 
@@ -26,15 +27,19 @@ void move_player(Player *player, char move_input) {
     switch (move_input) {
         case 'w':
             delta_y = -1;
+            player -> symbol = '^';
             break;
         case 's':
             delta_y = 1;
+            player -> symbol = 'v';
             break;
         case 'a':
             delta_x = -1;
+            player -> symbol = '<';
             break;
         case 'd':
             delta_x = 1;
+            player -> symbol = '>';
             break;
         default:
             break;
