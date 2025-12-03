@@ -5,13 +5,13 @@
 
 #include "graphics.h"
 
-Player* init_player () {
-    Player *new_player = malloc(sizeof(Player));
-    new_player -> position_x = 0;
-    new_player -> position_y = 1;
-    new_player -> health = 100;
-    new_player -> symbol = PLAYER_SYMBOL;
-    return new_player;
+void load_player () {
+    player = malloc(sizeof(Player));
+    player -> position_x = 0;
+    player -> position_y = 1;
+    player -> health = 100;
+    player -> symbol = PLAYER_SYMBOL;
+
 }
 
 void print_player (Player *player) {
@@ -55,6 +55,9 @@ bool has_collision(Player *player, int delta_x, int delta_y) {
     int new_pos_x = player -> position_x + delta_x;
     int new_pos_y = player -> position_y + delta_y;
     if (new_pos_x < 0 || new_pos_y < 0) {
+        return true;
+    }
+    if (new_pos_x >= GRAPHICS_WIDTH || new_pos_y >= GRAPHICS_HEIGHT) {
         return true;
     }
     if (graphics[new_pos_y][new_pos_x] != WALKABLE_CHAR) {
