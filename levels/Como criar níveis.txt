@@ -1,6 +1,49 @@
-Para criar um nível, só adicionar o arquivo, com o level<Número do level>.txt.
+COMO CRIAR NÍVEIS - Documentação Atualizada
+==========================================
 
-Pode colocar qualquer coisa, só seguimos algumas regras:
+PARA CRIAR UM NOVO NÍVEL:
+1. Crie um arquivo com nome: level<Número>.txt (ex: level2.txt, level3.txt)
+2. Coloque o arquivo na pasta 'levels/'
+3. O jogo carrega automaticamente os níveis em sequência
 
-'@' -> Player, posição de spawn
-' ' -> Espaço andável, qualquer coisa quer não for um espaço vai ser um obstáculo
+REGRAS DO MAPA:
+---------------
+CARACTERES ESPECIAIS:
+'@'  -> Posição inicial do jogador (spawn point)
+' '  -> Espaço andável (o jogador pode caminhar aqui)
+
+OBSTÁCULOS (não andáveis):
+Qualquer caractere que NÃO seja espaço (' ') é um obstáculo.
+Exemplos comuns:
+  '#'  -> Parede/obstáculo interno
+  '+'  -> Canto da borda
+  '-'  -> Borda horizontal
+  '|'  -> Borda vertical
+  '.'  -> Obstáculo decorativo
+  Qualquer outro caractere (letras, números, símbolos)
+
+ESTRUTURA DO MAPA:
+------------------
+1. O mapa deve ter BORDAS COMPLETAS em todos os lados
+2. Use '+' para cantos, '-' para bordas horizontais, '|' para bordas verticais
+3. Não deixe linhas vazias extras no final do arquivo
+4. Todas as linhas devem ter o MESMO comprimento (preencha com espaços se necessário)
+
+EXEMPLO DE ESTRUTURA CORRETA:
++-----------------------+
+|                       |
+|      ##########       |
+|      #        #       |
+|      #   @    #       |
+|      #        #       |
+|      ##########       |
+|                       |
++-----------------------+
+
+DICAS:
+------
+• Sempre teste o mapa no jogo após criá-lo
+• Verifique se o jogador (@) está em uma posição acessível
+• Garanta que haja caminhos andáveis (' ') para o jogador se mover
+• As bordas devem ser contínuas sem gaps
+• Use o level1.txt como referência
