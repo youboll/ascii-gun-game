@@ -6,15 +6,13 @@
 #include "player.h"
 #include "monsters.h"
 
-Player *player;
-
-
 void paint_screen_tick() {
     printf("\x1b[H");
     clear_screen();
     print_graphics();
     print_player(player);
     print_monsters();
+    print_bullets();
 }
 
 int main () {
@@ -24,11 +22,13 @@ int main () {
     print_graphics();
     load_player();
     load_monsters();
+    load_bullets();
     print_monsters();
     spawn_player(player);
     paint_screen_tick();
 
-    int frame_count = 0;
+    int monster_count = 0;
+    int bullet_count = 0;
     while (1) {
         if (kbhit()) {
             char key_value = (char) read_key();
@@ -40,13 +40,19 @@ int main () {
 
         }
 
-        if (frame_count >= 7200) {
-            frame_count = 0;
+        if (monster_count >= 7200) {
+            monster_count = 0;
             move_monsters();
             paint_screen_tick();
         }
+        if (bullet_count >= 1800) {
+            bullet_count = 0;
+            move_bullets();
+            paint_screen_tick();
+        }
 
-        frame_count++;
+        monster_count++;
+        bullet_count++;
         sleep(1/15);  // Limite de 15 FPS
     }
 }
