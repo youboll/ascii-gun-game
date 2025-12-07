@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "monsters.h"
-
+#include "colors.h"
 #include <time.h>
 #include <unistd.h>
 

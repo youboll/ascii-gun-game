@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "keyboard.h"
 #include "graphics.h"
 #include "player.h"
@@ -11,7 +12,9 @@ void paint_screen_tick() {
     clear_screen();
     print_graphics();
     print_player(player);
-    print_monsters();
+    for (int x = 0; x < monster_length; x++) {
+        print_player(monsters[x]);
+    }
     print_bullets();
 }
 

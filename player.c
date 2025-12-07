@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include "player.h"
-
+#include <stdbool.h>
 #include <stdio.h>
-
+#include "colors.h"
 #include "graphics.h"
 #include "monsters.h"
 #include "keyboard.h"
@@ -49,8 +49,9 @@ void print_bullets() {
         Bullet *bullet = bullets[x];
         if (bullet -> health == 0) continue;
         printf("\x1b[%d;%dH", bullet->position_y+1, bullet->position_x+1);
+        printf(Bullet_color);
         putchar(bullet -> symbol);
-        puts("\x1b[0m");
+        printf(COLOR_RESET);
     }
 }
 
@@ -86,7 +87,14 @@ void move_bullets() {
 void print_player (Player *player) {
     if (player -> health == 0) return;
     printf("\x1b[%d;%dH", player->position_y+1, player->position_x+1);
+    if (player -> symbol == MONSTER_SYMBOL) {
+        printf(Monster_color);
+    } else {
+        printf(Player_color);
+    }
+
     putchar(player -> symbol);
+    printf(COLOR_RESET);
     puts("\x1b[0m");
 }
 

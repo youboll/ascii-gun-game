@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #ifndef PLAYER_H
     #define PLAYER_H
     typedef struct {
@@ -18,6 +19,7 @@
 
     #define PLAYER_SYMBOL '@' // Começa com '@' e depois vira uma seta ascii, para onde ele olha
     #define BULLET_SYMBOL '*'
+    #define MONSTER_SYMBOL 'M'
     #define WALKABLE_CHAR ' '
     #define MAX_BULLETS 512 // Caso passar disso, vamos precisar de uma pilha
 
