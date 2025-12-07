@@ -2,6 +2,8 @@
 #include <string.h>
 #include "graphics.h"
 #include <stdlib.h>
+#include "colors.h"
+#include "player.h"
 
 /*
  * Gestor de gráficos em ASCII
@@ -30,16 +32,28 @@ void setup_graphics() {
 
 void print_graphics() {
     for (int x = 0; x < GRAPHICS_HEIGHT; x++) {
-        fputs(graphics[x], stdout);
+        char *line = graphics[x];
+
+        for (int y = 0; line[y] != '\0' && y < GRAPHICS_WIDTH; y++) {
+            char c = line[y];
+
+            if (c != ' ' && c != PLAYER_SYMBOL && c != MONSTER_SYMBOL && c != '\n') {
+                fputs(Wall_color, stdout);
+                putchar(c);
+                fputs(COLOR_RESET, stdout);
+            } else {
+                putchar(c);
+            }
+        }
     }
 }
 
 
 void clear_screen() {
-    #if IS_WINDOWS
+    #ifdef _WIN32
         system("cls");
     #else
-        system("clear");
+        system("cls");
     #endif
 }
 
