@@ -16,7 +16,8 @@ void load_player () {
     player = malloc(sizeof(Player));
     player -> position_x = 0;
     player -> position_y = 1;
-    player -> health = 100;
+    player -> health = MAX_HEALTH;
+    player -> max_health = MAX_HEALTH;
     player -> symbol = PLAYER_SYMBOL;
 }
 
@@ -145,6 +146,40 @@ bool has_collision(Player *player, int delta_x, int delta_y) {
         return true;
     }
     return false;
+}
+
+void health_bar(Player *player) {
+    int filled = (player -> health * HEALTH_BAR_WIDTH) / player->max_health;
+
+    printf("\x1b[s");
+
+    printf("\x1b[1;1H\x1b[2K");
+
+    printf("Vida: [");
+    printf(COLOR_RED);
+    for (int x=0; x<filled; x++) {
+        putchar('#');
+    }
+    printf(COLOR_RESET);
+
+    printf(COLOR_GREY);
+    for (int x=filled; x<HEALTH_BAR_WIDTH; x++) {
+        putchar('.');
+    }
+    printf(COLOR_RESET);
+
+    printf("] %d/%d", player -> health, player->max_health);
+
+    printf("\x1b[%d;%dH", player->position_y+1, player->position_x+1);
+
+    printf("\x1b[u");
+}
+
+void take_dmg(Player *player, int damage) {
+    player -> health -= damage;
+    if (player -> health < 0) {
+        player -> health = 0;
+    }
 }
 
 void spawn_player(Player *player) {

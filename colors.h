@@ -10,6 +10,7 @@
 #define COLOR_MAGENTA "\033[35m"
 #define COLOR_CYAN    "\033[36m"
 #define COLOR_WHITE   "\033[37m"
+#define COLOR_GREY    "\033[90m"
 
 #define Monster_color COLOR_RED
 #define Wall_color COLOR_CYAN
