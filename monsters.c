@@ -47,14 +47,15 @@ void load_monsters() {
 void move_monsters() {
     for (int x=0; x<monster_length; x++) {
         Player *monster = monsters[x];
+        if (monster -> health == 0) continue;
         int move_x = 0;
         int move_y = 0;
         if (player -> position_x > monster -> position_x) {
             move_x = 1;
-        } else if (player -> position_x > monster -> position_x) {
-            move_x = 0;
-        } else {
+        } else if (player -> position_x < monster -> position_x) {
             move_x = -1;
+        } else {
+            move_x = 0;
         }
 
         if (!has_collision(monster, move_x, 0)) {
@@ -63,14 +64,19 @@ void move_monsters() {
 
         if (player -> position_y > monster -> position_y) {
             move_y = 1;
-        } else if (player -> position_y == monster -> position_y) {
-            move_y = 0;
-        } else {
+        } else if (player -> position_y < monster -> position_y) {
             move_y = -1;
+        } else {
+            move_y = 0;
         }
 
         if (!has_collision(monster, 0, move_y)) {
             monster -> position_y += move_y;
+        }
+
+        if (monster -> position_x == player -> position_x && monster -> position_y == player -> position_y) {
+            take_dmg(player, 20);
+            printf("\a");
         }
     }
 }

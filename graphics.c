@@ -50,11 +50,8 @@ void print_graphics() {
 
 
 void clear_screen() {
-    #ifdef _WIN32
-        system("cls");
-    #else
-        system("cls");
-    #endif
+    printf("\x1b[2J\x1b[H");
+    fflush(stdout);
 }
 
 void hide_cursor() {
