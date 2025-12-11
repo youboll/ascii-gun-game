@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include "player.h"
-
+#include <stdbool.h>
 #include <stdio.h>
-
+#include "colors.h"
 #include "graphics.h"
 #include "monsters.h"
 #include "keyboard.h"
@@ -16,7 +16,8 @@ void load_player () {
     player = malloc(sizeof(Player));
     player -> position_x = 0;
     player -> position_y = 1;
-    player -> health = 100;
+    player -> health = MAX_HEALTH;
+    player -> max_health = MAX_HEALTH;
     player -> symbol = PLAYER_SYMBOL;
 }
 
@@ -49,8 +50,9 @@ void print_bullets() {
         Bullet *bullet = bullets[x];
         if (bullet -> health == 0) continue;
         printf("\x1b[%d;%dH", bullet->position_y+1, bullet->position_x+1);
+        printf(Bullet_color);
         putchar(bullet -> symbol);
-        puts("\x1b[0m");
+        printf(COLOR_RESET);
     }
 }
 
@@ -86,7 +88,14 @@ void move_bullets() {
 void print_player (Player *player) {
     if (player -> health == 0) return;
     printf("\x1b[%d;%dH", player->position_y+1, player->position_x+1);
+    if (player -> symbol == MONSTER_SYMBOL) {
+        printf(Monster_color);
+    } else {
+        printf(Player_color);
+    }
+
     putchar(player -> symbol);
+    printf(COLOR_RESET);
     puts("\x1b[0m");
 }
 
@@ -137,6 +146,40 @@ bool has_collision(Player *player, int delta_x, int delta_y) {
         return true;
     }
     return false;
+}
+
+void health_bar(Player *player) {
+    int filled = (player -> health * HEALTH_BAR_WIDTH) / player->max_health;
+
+    printf("\x1b[s");
+
+    printf("\x1b[1;1H\x1b[2K");
+
+    printf("Vida: [");
+    printf(COLOR_RED);
+    for (int x=0; x<filled; x++) {
+        putchar('#');
+    }
+    printf(COLOR_RESET);
+
+    printf(COLOR_GREY);
+    for (int x=filled; x<HEALTH_BAR_WIDTH; x++) {
+        putchar('.');
+    }
+    printf(COLOR_RESET);
+
+    printf("] %d/%d", player -> health, player->max_health);
+
+    printf("\x1b[%d;%dH", player->position_y+1, player->position_x+1);
+
+    printf("\x1b[u");
+}
+
+void take_dmg(Player *player, int damage) {
+    player -> health -= damage;
+    if (player -> health < 0) {
+        player -> health = 0;
+    }
 }
 
 void spawn_player(Player *player) {

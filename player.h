@@ -1,9 +1,11 @@
+#include <stdbool.h>
 #ifndef PLAYER_H
     #define PLAYER_H
     typedef struct {
         int position_x;
         int position_y;
         int health;
+        int max_health;
         char symbol;
     } Player;
     typedef struct {
@@ -18,8 +20,11 @@
 
     #define PLAYER_SYMBOL '@' // Começa com '@' e depois vira uma seta ascii, para onde ele olha
     #define BULLET_SYMBOL '*'
+    #define MONSTER_SYMBOL 'M'
     #define WALKABLE_CHAR ' '
     #define MAX_BULLETS 512 // Caso passar disso, vamos precisar de uma pilha
+    #define MAX_HEALTH 100
+    #define HEALTH_BAR_WIDTH 20
 
     extern Player* player;
     extern Bullet** bullets;
@@ -33,4 +38,6 @@
     void shot_bullet();
     void print_bullets();
     void move_bullets();
+    void health_bar(Player *player);
+    void take_dmg(Player *player, int damage);
 #endif
